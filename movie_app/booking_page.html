@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Show{% endblock %}
+
+{% block content %}
+  <h2>Book {{ show.movie.title }}</h2>
+  <p>Time: {{ show.show_time }}</p>
+  <p>Language: {{ show.language }}</p>
+  <p>Format: {{ show.format }}</p>
+  <p>Booking feature coming soon!</p>
+{% endblock %}

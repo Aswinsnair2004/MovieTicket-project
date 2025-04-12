@@ -1,0 +1,24 @@
+<h2>Select Seats for {{ show.movie.title }}</h2>
+<p>Show Time: {{ show.show_time }}</p>
+<p>Language: {{ show.language }}</p>
+<p>Format: {{ show.format }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label><input type="checkbox" name="seats" value="A1"> A1</label>
+        <label><input type="checkbox" name="seats" value="A2"> A2</label>
+        <label><input type="checkbox" name="seats" value="A3"> A3</label>
+        <label><input type="checkbox" name="seats" value="A4"> A4</label> 
+        <label><input type="checkbox" name="seats" value="A5"> A5</label>
+        <label><input type="checkbox" name="seats" value="A6"> A6</label>
+        <label><input type="checkbox" name="seats" value="A7"> A7</label>
+        <label><input type="checkbox" name="seats" value="A8"> A8</label>
+        <label><input type="checkbox" name="seats" value="A9"> A9</label>
+        <label><input type="checkbox" name="seats" value="A10"> A10</label>
+        <label><input type="checkbox" name="seats" value="A11"> A11</label>
+        <label><input type="checkbox" name="seats" value="A12"> A12</label>
+        <label><input type="checkbox" name="seats" value="A13"> A13</label><!-- Add more seats as needed -->
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+</form>

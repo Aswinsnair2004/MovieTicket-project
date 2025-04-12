@@ -1,3 +1,18 @@
 from django.db import models
 
-# Create your models here.
+class Movie(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    poster = models.ImageField(upload_to='posters/')
+
+    def __str__(self):
+        return self.title
+
+class Show(models.Model):
+    movie = models.ForeignKey('Movie', on_delete=models.CASCADE, related_name='shows')
+    show_time = models.DateTimeField()
+    language = models.CharField(max_length=50)
+    format = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.movie.title} - {self.show_time}"

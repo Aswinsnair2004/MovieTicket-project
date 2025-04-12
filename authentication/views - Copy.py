@@ -3,9 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from movie_app.models import Movie
-from django.shortcuts import get_object_or_404
-from movie_app.models import Movie, Show
 
 def register(request):
     if request.method == "POST":
@@ -13,64 +10,54 @@ def register(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
 
+        # Check if username already exists
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists.")
             return redirect("register")
 
+        # Check if email already registered
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered.")
             return redirect("register")
 
+        # Create user and log them in
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
-        login(request, user)
+        login(request, user)  # Automatically logs in the user
+
+        # Store success message in session (only shown once)
         request.session["registration_success"] = True  
-        return redirect("home")
+
+        return redirect("dashboard")  # Redirect to dashboard
 
     return render(request, "authentication/register.html")
 
 
 def login_view(request):
+    print("Login View Called")  # Debugging
+
     if request.method == 'POST':
+        print("POST Request Received")  # Debugging
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        print(f"Username: {username}, Password: {password}")  # Debugging
+
+        user = authenticate(request, username=username, password=password)  
 
         if user is not None:
+            print("User authenticated successfully")  # Debugging
             login(request, user)
-            return redirect('home')
+            return redirect('dashboard')  # Redirect to dashboard
         else:
-            messages.error(request, "Invalid username or password.")
+            print("Authentication failed")  # Debugging
+            messages.error(request, "Invalid username or password.")  # Display error
 
     return render(request, "authentication/login.html")
-
 
 @login_required
 def dashboard(request):
     return render(request, "authentication/dashboard.html")
 
-
 def logout_view(request):
     logout(request)
     return redirect("login")
-
-
-@login_required
-def home(request):
-    movies = Movie.objects.prefetch_related('shows')
-    return render(request, 'authentication/home.html', {'movies': movies})
-@login_required
-def book_show(request, show_id):
-    show = get_object_or_404(Show, id=show_id)
-    # Add booking logic here (e.g., save booking to the database)
-    messages.success(request, f"You have successfully booked the show for {show.movie.title} at {show.show_time}.")
-    return redirect('home')
-@login_required
-def select_seats(request, show_id):
-    show = get_object_or_404(Show, id=show_id)
-    if request.method == "POST":
-        selected_seats = request.POST.getlist("seats")
-        # Save booking logic here (e.g., save selected seats to the database)
-        messages.success(request, f"Seats {', '.join(selected_seats)} booked successfully for {show.movie.title}.")
-        return redirect('home')
-    return render(request, 'authentication/select_seats.html', {'show': show})

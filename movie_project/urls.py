@@ -17,9 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from authentication import views
 
 urlpatterns = [
     path('', include('authentication.urls')),
     path('', lambda request: redirect('login')),
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('book/<int:show_id>/', views.book_show, name='book_show'),
+
 ]
