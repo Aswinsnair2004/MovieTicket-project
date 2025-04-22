@@ -1,0 +1,17 @@
+<!-- filepath: d:\MovieTicketProject\movie_app\templates\movie_app\ticket.html -->
+{% extends 'base.html' %}
+
+{% block title %}Your Ticket{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h2>Your Ticket</h2>
+    <p><strong>Movie:</strong> {{ show.movie.title }}</p>
+    <p><strong>Show Time:</strong> {{ show.show_time }}</p>
+    <p><strong>Language:</strong> {{ show.language }}</p>
+    <p><strong>Format:</strong> {{ show.format }}</p>
+    <p><strong>Seats:</strong> {{ selected_seats|join:", " }}</p>
+    <p class="text-success">Thank you for booking with Cinephile!</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Go to Home</a>
+</div>
+{% endblock %}

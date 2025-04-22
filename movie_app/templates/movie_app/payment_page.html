@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Payment for {{ show.movie.title }}</h2>
+    <p><strong>Show Time:</strong> {{ show.show_time }}</p>
+    <p><strong>Language:</strong> {{ show.language }}</p>
+    <p><strong>Format:</strong> {{ show.format }}</p>
+    <p><strong>Selected Seats:</strong> {{ selected_seats|join:", " }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ total_amount }}</p>
+
+    <h4 class="mt-4">Choose Payment Method</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="paymentMethod" class="form-label">Payment Method</label>
+            <select class="form-select" id="paymentMethod" name="payment_method" required>
+                <option value="card">Card Payment</option>
+                <option value="upi">UPI Payment</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Confirm Payment</button>
+    </form>
+</div>
+{% endblock %}

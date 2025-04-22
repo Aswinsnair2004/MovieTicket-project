@@ -14,7 +14,10 @@ urlpatterns = [
     path('register/', views.register, name='register'),
      path('book/<int:show_id>/', views.book_show, name='book_show'),
      path('select-seats/<int:show_id>/', views.select_seats, name='select_seats'),
-     
+     path('process-payment/<int:show_id>/', views.process_payment, name='process_payment'),
+     path('my-tickets/', views.my_tickets, name='my_tickets'),
+     path('cancel-ticket/<int:ticket_id>/', views.cancel_ticket, name='cancel_ticket'),
+     path('payment/', views.payment_page, name='payment_page'),
 ]
 
 if settings.DEBUG:

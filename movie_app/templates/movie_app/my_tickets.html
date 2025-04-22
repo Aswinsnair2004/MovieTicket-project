@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}My Tickets{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">My Tickets</h2>
+    {% if tickets %}
+        <div class="row">
+            {% for ticket in tickets %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ticket.show.movie.title }}</h5>
+                            <p><strong>Show Time:</strong> {{ ticket.show.show_time }}</p>
+                            <p><strong>Language:</strong> {{ ticket.show.language }}</p>
+                            <p><strong>Format:</strong> {{ ticket.show.format }}</p>
+                            <p><strong>Seats:</strong> {{ ticket.seats }}</p>
+                            <p><strong>Booking Time:</strong> {{ ticket.booking_time }}</p>
+                            <a href="{% url 'cancel_ticket' ticket.id %}" class="btn btn-danger btn-sm">Cancel Ticket</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">You have not booked any tickets yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

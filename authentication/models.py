@@ -13,6 +13,7 @@ class Show(models.Model):
     show_time = models.DateTimeField()
     language = models.CharField(max_length=50)
     format = models.CharField(max_length=50)
+    booked_seats = models.TextField(default="")  # Store booked seats as a comma-separated string
 
     def __str__(self):
         return f"{self.movie.title} - {self.show_time}"

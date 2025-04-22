@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Cancel Ticket{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h2>Cancel Ticket</h2>
+    <p>Are you sure you want to cancel this ticket?</p>
+    <p><strong>Movie:</strong> {{ ticket.show.movie.title }}</p>
+    <p><strong>Show Time:</strong> {{ ticket.show.show_time }}</p>
+    <p><strong>Seats:</strong> {{ ticket.seats }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Cancel Ticket</button>
+        <a href="{% url 'my_tickets' %}" class="btn btn-secondary">No, Go Back</a>
+    </form>
+</div>
+{% endblock %}

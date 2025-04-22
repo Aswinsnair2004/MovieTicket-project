@@ -1,0 +1,22 @@
+<!-- filepath: d:\MovieTicketProject\movie_app\templates\movie_app\confirmation_page.html -->
+{% extends 'base.html' %}
+
+{% block title %}Booking Confirmation{% endblock %}
+
+{% block content %}
+  <h2>Booking Confirmed!</h2>
+  <p>Movie: {{ show.movie.title }}</p>
+  <p>Time: {{ show.show_time }}</p>
+  <p>Language: {{ show.language }}</p>
+  <p>Format: {{ show.format }}</p>
+
+  <h4>Seats:</h4>
+  <ul>
+    {% for seat in selected_seats %}
+      <li>{{ seat }}</li>
+    {% endfor %}
+  </ul>
+
+  <p class="text-success">Thank you for booking with us! Enjoy your movie.</p>
+  <a href="{% url 'home' %}" class="btn btn-primary">Go to Home</a>
+{% endblock %}
